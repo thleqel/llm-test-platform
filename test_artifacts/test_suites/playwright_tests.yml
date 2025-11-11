@@ -1,0 +1,128 @@
+version: '1.0'
+metadata:
+  name: Playwright UI Tests
+  description: Browser automation tests for chat interface
+  owner: qa-team
+  tags:
+  - ui
+  - playwright
+  - e2e
+test_cases:
+- id: pw_001
+  name: Chat response - Capital of France
+  input: What is the capital of France?
+  expected_output: Paris
+  adapter:
+    type: playwright
+    config:
+      browser: chromium
+      headless: false
+      base_url: ''
+      steps:
+      - action: goto
+        url: file:///Users/tle3/Workplace/codes/dtt/ai/llm-test-platform/test_artifacts/adapters/chat_test_page.html
+      - action: wait_for_selector
+        selector: '#chat-input'
+        timeout: 5000
+      - action: fill
+        selector: '#chat-input'
+        value: '{{input}}'
+      - action: click
+        selector: '#send-button'
+      - action: wait
+        timeout: 1000
+      - action: wait_for_selector
+        selector: .bot-message .message-text
+        timeout: 10000
+      - action: extract_text
+        selector: .bot-message:last-child .message-text
+        save_as: actual_output
+      screenshot_on_error: true
+  metrics:
+  - correctness
+  thresholds:
+    correctness: 0.8
+  tags:
+  - chat
+  - basic
+  enabled: true
+- id: pw_002
+  name: Chat response - Business hours
+  input: What are your business hours?
+  expected_output: We're open Monday-Saturday, 9 AM to 5 PM.
+  adapter:
+    type: playwright
+    config:
+      browser: chromium
+      headless: false
+      base_url: ''
+      steps:
+      - action: goto
+        url: file:///Users/tle3/Workplace/codes/dtt/ai/llm-test-platform/test_artifacts/adapters/chat_test_page.html
+      - action: wait_for_selector
+        selector: '#chat-input'
+        timeout: 5000
+      - action: fill
+        selector: '#chat-input'
+        value: '{{input}}'
+      - action: click
+        selector: '#send-button'
+      - action: wait
+        timeout: 1000
+      - action: wait_for_selector
+        selector: .bot-message .message-text
+        timeout: 10000
+      - action: extract_text
+        selector: .bot-message:last-child .message-text
+        save_as: actual_output
+      screenshot_on_error: true
+  metrics:
+  - correctness
+  thresholds:
+    correctness: 0.8
+  tags:
+  - chat
+  - info
+  enabled: true
+  context: {}
+- id: pw_003
+  name: Chat response - Machine learning
+  input: What is machine learning?
+  expected_output: Machine learning is a subset of AI
+  adapter:
+    type: playwright
+    config:
+      browser: chromium
+      headless: true
+      base_url: ''
+      steps:
+      - action: goto
+        url: file:///Users/tle3/Workplace/codes/dtt/ai/llm-test-platform/test_artifacts/adapters/chat_test_page.html
+      - action: wait_for_selector
+        selector: '#chat-input'
+        timeout: 5000
+      - action: fill
+        selector: '#chat-input'
+        value: '{{input}}'
+      - action: click
+        selector: '#send-button'
+      - action: wait
+        timeout: 1000
+      - action: screenshot
+      - action: wait_for_selector
+        selector: .bot-message .message-text
+        timeout: 10000
+      - action: extract_text
+        selector: .bot-message:last-child .message-text
+        save_as: actual_output
+      screenshot_on_error: true
+  metrics:
+  - correctness
+  - answer_relevancy
+  thresholds:
+    correctness: 0.7
+    answer_relevancy: 0.7
+  tags:
+  - chat
+  - tech
+  enabled: true
