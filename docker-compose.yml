@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  # DeepEval Evaluation Service
+  deepeval-service:
+    build:
+      context: ./service
+      dockerfile: Dockerfile
+    container_name: llm-test-deepeval-service
+    ports:
+      - "8001:8000"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - LOG_LEVEL=info
+    volumes:
+      - ./service:/app
+    depends_on:
+      - ollama
+    networks:
+      - llm-test-network
+    restart: unless-stopped
+
+  # Ollama LLM Service
+  ollama:
+    image: ollama/ollama:latest
+    container_name: llm-test-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - llm-test-network
+    restart: unless-stopped
+    # Pull required models on startup
+    command: >
+      sh -c "ollama serve & sleep 5 && 
+             ollama pull llama3.2:1b &&
+             wait"
+
+  # UI Backend (FastAPI)
+  ui-backend:
+    build:
+      context: .
+      dockerfile: ui/backend/Dockerfile
+    container_name: llm-test-ui-backend
+    ports:
+      - "8002:8002"
+    environment:
+      - DEEPEVAL_SERVICE_URL=http://deepeval-service:8000
+      - TEST_ARTIFACTS_DIR=/app/test_artifacts
+      - TEST_RESULTS_DIR=/app/test_results
+      - MAX_CONCURRENCY=10
+    volumes:
+      - ./test_artifacts:/app/test_artifacts:ro
+      - ./test_results:/app/test_results
+      - ./framework:/app/framework
+    depends_on:
+      - deepeval-service
+    networks:
+      - llm-test-network
+    restart: unless-stopped
+
+  # UI Frontend (Next.js)
+  ui-frontend:
+    build:
+      context: ./ui/frontend
+      dockerfile: Dockerfile
+    container_name: llm-test-ui-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8002
+    depends_on:
+      - ui-backend
+    networks:
+      - llm-test-network
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+    driver: local
+
+networks:
+  llm-test-network:
+    driver: bridge

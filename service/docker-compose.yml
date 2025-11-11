@@ -1,0 +1,26 @@
+services:
+  deepeval-service:
+    build: .
+    container_name: deepeval-service
+    ports:
+      - "8001:8000"
+    environment:
+      - OLLAMA_HOST=http://host.docker.internal:11434
+      - OLLAMA_MODEL=llama3.1:8b
+      - OLLAMA_TEMPERATURE=0.0
+      - SERVICE_HOST=0.0.0.0
+      - SERVICE_PORT=8000
+      - USE_LOCAL_MODEL=1
+      - LOCAL_MODEL_NAME=llama3.1:8b
+      - LOCAL_MODEL_API_KEY=ollama
+      - LOCAL_MODEL_BASE_URL=http://host.docker.internal:11434/
+      - USE_OPENAI_MODEL=0
+      - DEEPEVAL_MODEL=ollama
+      - DEEPEVAL_MODEL_NAME=llama3.1:8b
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped

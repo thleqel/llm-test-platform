@@ -1,0 +1,59 @@
+version: '1.0'
+metadata:
+  name: Mock Tests
+  description: Example tests using mocked responses for unit testing
+  owner: dev-team
+  tags:
+  - unit
+  - mock
+test_cases:
+- id: mock_001
+  name: Basic mock response test
+  input: What is the capital of France?
+  expected_output: It is Paris
+  adapter:
+    type: mock
+    config:
+      actual_output: Paris is the capital of France
+  metrics:
+  - correctness
+  thresholds:
+    correctness: 0.7
+  tags:
+  - smoke
+  - mock
+  enabled: true
+  context: {}
+- id: mock_002
+  name: Fixture file test
+  input: Load from fixture
+  expected_output: Expected response from file
+  adapter:
+    type: mock
+    config:
+      fixture_file: test_artifacts/fixtures/mock_002_response.txt
+  metrics:
+  - answer_relevancy
+  tags:
+  - mock
+  - fixture
+  enabled: true
+  context: {}
+  thresholds:
+    answer_relevancy: 0.7
+- id: mock_tests_003
+  name: New test created from UI
+  input: What is machine learning?
+  expected_output: Machine learning is a subset of artificial intelligence
+  metrics:
+  - answer_relevancy
+  - faithfulness
+  tags:
+  - smoke
+  - new
+  enabled: true
+  adapter:
+    type: mock
+    config:
+      actual_output: Machine learning is a subset of AI that enables computers to
+        learn from data

@@ -1,0 +1,56 @@
+version: "1.0"
+metadata:
+  name: "Python Function Tests"
+  description: "Example tests calling Python functions directly"
+  owner: "dev-team"
+  tags: ["unit", "function"]
+
+test_cases:
+  - id: "func_001"
+    name: "Direct chatbot function call"
+    input: "What is your return policy?"
+    expected_output: "Returns are accepted within 30 days"
+    adapter:
+      type: "python_function"
+      config:
+        module: "my_app.chatbot"
+        function: "get_response"
+        args:
+          message: "{{input}}"
+          session_id: "test_{{test_case_id}}"
+          user_context:
+            role: "customer"
+    metrics:
+      - "answer_relevancy"
+      - "bias"
+    thresholds:
+      answer_relevancy: 0.7
+      bias: 0.9
+    tags: ["function", "p0"]
+    enabled: true
+  
+  - id: "func_002"
+    name: "RAG pipeline function"
+    input: "Explain the warranty"
+    expected_output: "Products have a 1-year limited warranty"
+    retrieval_context:
+      - "All products include 1-year limited warranty"
+      - "Extended warranty available for purchase"
+    adapter:
+      type: "python_function"
+      config:
+        module: "my_app.rag_pipeline"
+        function: "query"
+        args:
+          question: "{{input}}"
+          top_k: 5
+    metrics:
+      - "answer_relevancy"
+      - "faithfulness"
+      - "contextual_precision"
+    thresholds:
+      answer_relevancy: 0.75
+      faithfulness: 0.80
+      contextual_precision: 0.70
+    tags: ["rag", "p1"]
+    enabled: true

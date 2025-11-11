@@ -1,0 +1,13 @@
+version: '1.0'
+metadata:
+  name: E2E Tests
+  description: End-to-end integration tests for the application
+  owner: qa-team
+  tags:
+  - e2e
+  - integration
+  - critical
+test_cases: []
+default_adapter:
+  type: playwright
+  config: {}

@@ -1,0 +1,91 @@
+version: "1.0"
+metadata:
+  name: "UI Tests with Playwright"
+  description: "Example tests for web UI interactions"
+  owner: "qa-team"
+  tags: ["ui", "playwright"]
+
+default_adapter:
+  type: "playwright"
+  config:
+    browser: "chromium"
+    headless: true
+    base_url: "http://localhost:3000"
+    screenshot_on_error: true
+
+test_cases:
+  - id: "ui_001"
+    name: "Chat widget interaction"
+    input: "What are your business hours?"
+    expected_output: "We're open Monday-Friday, 9 AM to 5 PM"
+    adapter:
+      type: "playwright"
+      config:
+        browser: "chromium"
+        headless: true
+        base_url: "http://localhost:3000"
+        steps:
+          - action: "goto"
+            url: "/chat"
+          
+          - action: "wait_for_selector"
+            selector: "#chat-input"
+            timeout: 5000
+          
+          - action: "fill"
+            selector: "#chat-input"
+            value: "{{input}}"
+          
+          - action: "click"
+            selector: "#send-button"
+          
+          - action: "wait_for_selector"
+            selector: ".chat-response:last-child"
+            timeout: 10000
+          
+          - action: "extract_text"
+            selector: ".chat-response:last-child .message-text"
+            save_as: "actual_output"
+        
+        screenshot_on_error: true
+    metrics:
+      - "answer_relevancy"
+    thresholds:
+      answer_relevancy: 0.7
+    tags: ["ui", "chat", "p0"]
+    enabled: true
+  
+  - id: "ui_002"
+    name: "Form submission test"
+    input: "I need help with my order"
+    expected_output: "Please provide your order number"
+    adapter:
+      type: "playwright"
+      config:
+        browser: "chromium"
+        headless: false
+        base_url: "http://localhost:3000"
+        steps:
+          - action: "goto"
+            url: "/support"
+          
+          - action: "click"
+            selector: "#start-chat-btn"
+          
+          - action: "fill"
+            selector: "textarea[name='message']"
+            value: "{{input}}"
+          
+          - action: "click"
+            selector: "button[type='submit']"
+          
+          - action: "wait"
+            timeout: 2000
+          
+          - action: "extract_text"
+            selector: ".bot-response:last-child"
+            save_as: "actual_output"
+    metrics:
+      - "answer_relevancy"
+    tags: ["ui", "form", "p1"]
+    enabled: true

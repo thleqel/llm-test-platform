@@ -1,0 +1,56 @@
+version: "1.0"
+metadata:
+  name: "HTTP API Tests"
+  description: "Example tests for REST API endpoints"
+  owner: "qa-team"
+  tags: ["api", "http"]
+
+# Default adapter for all tests (can be overridden per test)
+default_adapter:
+  type: "http_api"
+  config:
+    endpoint: "http://localhost:5000/api/chat"
+    method: "POST"
+    headers:
+      Content-Type: "application/json"
+    timeout: 30
+
+test_cases:
+  - id: "api_001"
+    name: "Basic chat question"
+    input: "What is machine learning?"
+    expected_output: "Machine learning is a subset of AI"
+    metrics:
+      - "answer_relevancy"
+    adapter:
+      type: "http_api"
+      config:
+        endpoint: "http://localhost:5000/api/chat"
+        method: "POST"
+        headers:
+          Content-Type: "application/json"
+        request_body:
+          message: "{{input}}"
+          session_id: "test_{{test_case_id}}"
+        response_path: "data.response"
+        timeout: 30
+    thresholds:
+      answer_relevancy: 0.7
+    tags: ["basic", "p0"]
+    enabled: true
+
+  - id: "api_002"
+    name: "Technical query with context"
+    input: "Explain neural networks"
+    expected_output: "Neural networks are computational models inspired by biological neurons"
+    retrieval_context:
+      - "Neural networks consist of layers of interconnected nodes"
+      - "Each node performs a weighted sum and applies an activation function"
+    metrics:
+      - "answer_relevancy"
+      - "faithfulness"
+    thresholds:
+      answer_relevancy: 0.75
+      faithfulness: 0.80
+    tags: ["technical", "p1"]
+    enabled: true
