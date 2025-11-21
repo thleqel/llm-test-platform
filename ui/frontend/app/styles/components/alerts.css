@@ -1,0 +1,63 @@
+/* ========================================
+   ALERT SYSTEM
+   Modern alert/notification components
+   ======================================== */
+
+.alert {
+  border-radius: var(--radius-md);
+  border: 2px solid;
+  padding: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  transition: all var(--transition-base);
+}
+
+/* Alert Variants */
+.alert-info {
+  background: linear-gradient(to right, rgb(239 246 255), white);
+  border-color: rgb(191 219 254);
+  color: rgb(29 78 216);
+}
+
+.alert-success {
+  background: linear-gradient(to right, rgb(240 253 244), white);
+  border-color: rgb(187 247 208);
+  color: rgb(21 128 61);
+}
+
+.alert-warning {
+  background: linear-gradient(to right, rgb(254 252 232), white);
+  border-color: rgb(253 230 138);
+  color: rgb(161 98 7);
+}
+
+.alert-error {
+  background: linear-gradient(to right, rgb(254 242 242), white);
+  border-color: rgb(252 165 165);
+  color: rgb(185 28 28);
+}
+
+/* Alert with dismiss button */
+.alert-dismissible {
+  position: relative;
+  padding-right: 3rem;
+}
+
+.alert-dismiss-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity var(--transition-base);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.alert-dismiss-btn:hover {
+  opacity: 1;
+}

@@ -1,0 +1,189 @@
+/* ========================================
+   UTILITY CLASSES
+   Reusable utility styles
+   ======================================== */
+
+/* Gradients */
+.gradient-bg {
+  background: linear-gradient(135deg, 
+    rgb(243 232 255) 0%, 
+    rgb(219 234 254) 50%, 
+    rgb(254 249 195) 100%
+  );
+}
+
+.gradient-purple {
+  background: linear-gradient(to bottom right, rgb(168 85 247), rgb(147 51 234));
+}
+
+.gradient-blue {
+  background: linear-gradient(to bottom right, rgb(59 130 246), rgb(37 99 235));
+}
+
+.gradient-purple-subtle {
+  background: linear-gradient(to right, rgb(250 245 255), transparent);
+}
+
+.gradient-hover-overlay::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.1), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.gradient-hover-overlay:hover::before {
+  opacity: 1;
+}
+
+/* Focus States */
+.focus-ring:focus {
+  outline: 2px solid rgb(168 85 247);
+  outline-offset: 2px;
+}
+
+.focus-ring-purple:focus-visible {
+  outline: 2px solid rgb(168 85 247);
+  outline-offset: 2px;
+}
+
+/* Text Styles */
+.section-title {
+  font-weight: 600;
+  color: rgb(55 65 81);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, rgb(147 51 234), rgb(59 130 246));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-muted {
+  color: rgb(107 114 128);
+}
+
+.text-small {
+  font-size: 0.875rem;
+}
+
+.text-tiny {
+  font-size: 0.75rem;
+}
+
+/* Layout Utilities */
+.container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.stack-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stack-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.center-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scrollbar Styling */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgb(243 244 246);
+  border-radius: var(--radius-full);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(209 213 219);
+  border-radius: var(--radius-full);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgb(156 163 175);
+}
+
+/* Loading States */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgb(243 244 246) 0%,
+    rgb(229 231 235) 50%,
+    rgb(243 244 246) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+.spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid rgb(243 244 246);
+  border-top-color: rgb(147 51 234);
+  border-radius: var(--radius-full);
+  animation: spin 0.6s linear infinite;
+}
+
+/* Interactive States */
+.clickable {
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.clickable:hover {
+  transform: translateY(-1px);
+}
+
+.clickable:active {
+  transform: translateY(0);
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Visibility */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

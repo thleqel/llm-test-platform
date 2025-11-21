@@ -46,6 +46,7 @@ test_cases:
   - chat
   - basic
   enabled: true
+  context: {}
 - id: pw_002
   name: Chat response - Business hours
   input: What are your business hours?

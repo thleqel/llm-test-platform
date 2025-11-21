@@ -1,0 +1,185 @@
+/* ========================================
+   FORM SYSTEM
+   Modern form inputs with variants
+   ======================================== */
+
+/* Base Input */
+.input {
+  width: 100%;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-md);
+  border: 2px solid rgb(229 231 235);
+  background: white;
+  color: rgb(17 24 39);
+  transition: all var(--transition-base);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.input::placeholder {
+  color: rgb(156 163 175);
+}
+
+.input:hover {
+  border-color: rgb(216 180 254);
+}
+
+.input:focus {
+  outline: none;
+  border-color: rgb(168 85 247);
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15), 0 0 20px rgba(168, 85, 247, 0.1);
+  transform: translateY(-1px);
+}
+
+.input:disabled {
+  background: rgb(249 250 251);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Input States */
+.input-error {
+  border-color: rgb(252 165 165);
+}
+
+.input-error:focus {
+  border-color: rgb(239 68 68);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+}
+
+.input-success {
+  border-color: rgb(187 247 208);
+}
+
+.input-success:focus {
+  border-color: rgb(21 128 61);
+  box-shadow: 0 0 0 4px rgba(21, 128, 61, 0.1);
+}
+
+/* Textarea */
+.textarea {
+  width: 100%;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-md);
+  border: 2px solid rgb(229 231 235);
+  background: white;
+  color: rgb(17 24 39);
+  min-height: 100px;
+  resize: vertical;
+  transition: all var(--transition-base);
+  font-family: inherit;
+}
+
+.textarea::placeholder {
+  color: rgb(156 163 175);
+}
+
+.textarea:hover {
+  border-color: rgb(216 180 254);
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: rgb(168 85 247);
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15), 0 0 20px rgba(168, 85, 247, 0.1);
+}
+
+/* Select */
+.select {
+  width: 100%;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-md);
+  border: 2px solid rgb(229 231 235);
+  background: white;
+  color: rgb(17 24 39);
+  appearance: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgb(107, 114, 128)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+.select:hover {
+  border-color: rgb(216 180 254);
+}
+
+.select:focus {
+  outline: none;
+  border-color: rgb(168 85 247);
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15), 0 0 20px rgba(168, 85, 247, 0.1);
+}
+
+/* Form Labels and Hints */
+.input-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgb(55 65 81);
+  margin-bottom: 0.5rem;
+}
+
+.input-hint {
+  font-size: 0.75rem;
+  color: rgb(107 114 128);
+  margin-top: 0.375rem;
+  line-height: 1.4;
+}
+
+.input-error-text {
+  font-size: 0.75rem;
+  color: rgb(220 38 38);
+  margin-top: 0.375rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Checkbox and Radio */
+.checkbox,
+.radio {
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid rgb(229 231 235);
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.checkbox {
+  border-radius: 0.25rem;
+}
+
+.radio {
+  border-radius: 50%;
+}
+
+.checkbox:checked,
+.radio:checked {
+  background-color: rgb(168 85 247);
+  border-color: rgb(168 85 247);
+}
+
+.checkbox:focus,
+.radio:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1);
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

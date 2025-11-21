@@ -1,0 +1,64 @@
+/* ========================================
+   TABLE SYSTEM
+   Modern table components
+   ======================================== */
+
+.table-modern {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-modern thead {
+  background: linear-gradient(to right, rgb(250 245 255), transparent);
+}
+
+.table-modern thead th {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgb(55 65 81);
+  border-bottom: 2px solid rgb(229 231 235);
+  white-space: nowrap;
+}
+
+.table-modern tbody tr {
+  border-bottom: 1px solid rgb(243 244 246);
+  transition: all var(--transition-base);
+}
+
+.table-modern tbody tr:hover {
+  background: linear-gradient(to right, rgba(250, 245, 255, 0.5), rgba(239, 246, 255, 0.3));
+  transform: translateX(4px);
+  box-shadow: -4px 0 0 0 rgb(168 85 247);
+}
+
+.table-modern tbody td {
+  padding: 1rem 1.5rem;
+  font-size: 0.875rem;
+  color: rgb(17 24 39);
+}
+
+.table-modern tbody tr:hover td:first-child {
+  color: rgb(147 51 234);
+  font-weight: 600;
+}
+
+/* Table Variants */
+.table-compact thead th,
+.table-compact tbody td {
+  padding: 0.75rem 1rem;
+}
+
+.table-striped tbody tr:nth-child(even) {
+  background: rgb(249 250 251);
+}
+
+.table-bordered {
+  border: 2px solid rgb(229 231 235);
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid rgb(229 231 235);
+}

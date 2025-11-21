@@ -1,0 +1,85 @@
+/* ========================================
+   CARD SYSTEM
+   Modern card components with variants
+   ======================================== */
+
+.card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 2px solid rgb(229 231 235);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+/* Interactive Hover Card */
+.card-hover {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 2px solid rgb(229 231 235);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-slow);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-hover::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+  pointer-events: none;
+}
+
+.card-hover:hover {
+  box-shadow: 0 20px 40px -10px rgba(168, 85, 247, 0.25);
+  border-color: rgb(216 180 254);
+  transform: translateY(-8px) scale(1.02);
+}
+
+.card-hover:hover::before {
+  opacity: 1;
+}
+
+/* Gradient Card */
+.card-gradient {
+  border-radius: var(--radius-lg);
+  border: 2px solid rgb(233 213 255);
+  background: linear-gradient(to bottom right, rgb(250 245 255), white);
+  box-shadow: var(--shadow-md);
+}
+
+/* Card Sections */
+.card-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid rgb(243 244 246);
+  background: linear-gradient(to right, rgb(250 245 255), transparent);
+}
+
+.card-body {
+  padding: 1rem 1.5rem;
+}
+
+.card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 2px solid rgb(243 244 246);
+  background: rgba(249, 250, 251, 0.5);
+}
+
+/* Card Variants */
+.card-compact .card-header,
+.card-compact .card-body,
+.card-compact .card-footer {
+  padding: 0.75rem 1rem;
+}
+
+.card-spacious .card-header,
+.card-spacious .card-body,
+.card-spacious .card-footer {
+  padding: 1.5rem 2rem;
+}
